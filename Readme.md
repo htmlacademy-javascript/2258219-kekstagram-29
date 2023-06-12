@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Arina Sorokina](https://up.htmlacademy.ru/javascript/29/user/2258219).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Ившин](https://htmlacademy.ru/profile/id818775).
 
 ---
 
