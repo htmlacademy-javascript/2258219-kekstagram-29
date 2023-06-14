@@ -1,16 +1,16 @@
-const measureString = (string, maxLength) => string.length >= maxLength;
+const isLessOrEquel = (string, maxLength) => string.length >= maxLength;
 
-measureString('проверяемая строка', 10);
+isLessOrEquel('проверяемая строка', 10);
 
 function isPalindrom(string) {
   const cleanString = string.replaceAll(' ', '').toLowerCase();
-  let reversedString = '';
 
-  for (let i = cleanString.length - 1; i >= 0; i--) {
-    reversedString += cleanString.at(i);
+  for (let i = 0; i < cleanString.length / 2; i++) {
+    if (string[i] !== string[string.lenght - i - 1]) {
+      return false;
+    }
   }
-  return reversedString === cleanString;
+  return true;
 }
 
 isPalindrom('Лёша на полке клопа нашёл');
-
