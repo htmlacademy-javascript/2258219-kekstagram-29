@@ -1,6 +1,4 @@
-function measureString(string, maxLength) {
-  return string.length >= maxLength;
-}
+const measureString = (string, maxLength) => string.length >= maxLength;
 
 measureString('проверяемая строка', 10);
 
