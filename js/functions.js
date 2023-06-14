@@ -2,7 +2,7 @@ function measureString(string, maxLength) {
   return string.length >= maxLength;
 }
 
-console.log(measureString('проверяемая строка', 10));
+measureString('проверяемая строка', 10);
 
 function isPalindrom(string) {
   const cleanString = string.replaceAll(' ', '').toLowerCase();
@@ -14,5 +14,5 @@ function isPalindrom(string) {
   return reversedString === cleanString;
 }
 
-console.log(isPalindrom('Лёша на полке клопа нашёл'));
+isPalindrom('Лёша на полке клопа нашёл');
 
