@@ -19,4 +19,4 @@ posts.forEach(({url, description, comments, likes}) => {
 
 const showPictures = () => pictures.appendChild(picturesFragment);
 
-export { showPictures };
+export { showPictures, posts };
