@@ -1,14 +1,12 @@
-import { showPictures} from './posts.js';
-import { renderComments, bigPicture, bigPictureTemplate } from './big-picture.js';
+import { renderPictures } from './posts.js';
+import { createComment } from './data.js';
+import { renderComments } from './big-picture.js';
+import { getAllPosts } from './data.js';
 
-showPictures();
+const container = document.querySelector('.pictures');
 
-showPictures.addEventListener('click', (evt) => { // Клик по миниатюре showPictures. Как бороться с "showPicture.addEventListener is not a function"?
-  evt.preventDefault();
-  bigPicture.classList.remove('hidden');
-  bigPictureTemplate();
-  renderComments();
-});
+renderComments(createComment);
+renderPictures(getAllPosts, container);
 
 /*
 Окно должно открываться при клике на миниатюру.
