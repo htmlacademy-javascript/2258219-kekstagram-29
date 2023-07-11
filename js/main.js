@@ -1,12 +1,13 @@
 import { renderPictures } from './posts.js';
-import { createComment } from './data.js';
-import { renderComments } from './big-picture.js';
+import { createComment, createPost } from './data.js';
+import { renderComments, renderBigPicture } from './big-picture.js';
 import { getAllPosts } from './data.js';
 
 const container = document.querySelector('.pictures');
 
 renderComments(createComment);
-renderPictures(getAllPosts, container);
+renderPictures(getAllPosts(), container);
+
 
 /*
 Окно должно открываться при клике на миниатюру.

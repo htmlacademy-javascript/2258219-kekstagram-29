@@ -9,15 +9,17 @@ const fillPostInfo = ({url, description, comments, likes}) => {
   postElement.querySelector('.picture__img').alt = description;
   postElement.querySelector('.picture__comments').textContent = comments.length;
   postElement.querySelector('.picture__likes').textContent = likes;
+  return postElement;
 };
 
 const renderPictures = (pictures, container) => {
-  const picturesFragment = document.createDocumentFragment(); //pictures.forEach is not a function at renderPictures
-  pictures.forEach((picture) => { //Как аттрибут(?) будет тут работать? pictures - arrray, picture автоматически - array[i]?
+  const picturesFragment = document.createDocumentFragment();
+  pictures.forEach((picture) => {
     const postElement = fillPostInfo(picture);
     picturesFragment.appendChild(postElement);
   });
   container.append(picturesFragment);
 };
+
 
 export { renderPictures };
