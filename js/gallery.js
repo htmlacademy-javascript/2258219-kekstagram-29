@@ -12,7 +12,7 @@ const renderGallery = (posts) => {
 
     evt.preventDefault();
     const picture = posts.find(
-      (item) => item.id === +posts.dataset.postId
+      (item) => item.id === +thumbnail.dataset.postId
     );
     showBigPicture(picture);
   });

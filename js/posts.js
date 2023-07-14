@@ -23,10 +23,8 @@ const renderPosts = (posts, container) => {
     const postElement = fillPostInfo(picture);
     postsFragment.append(postElement);
   });
-
   container.append(postsFragment);
 };
-
 
 export { renderPosts, fillPostInfo };
 

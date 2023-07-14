@@ -25,6 +25,8 @@ const fillCommentInfo = (({avatar, message, name}) => {
   comment.querySelector('.social__picture').src = avatar;
   comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;
+
+  return comment;
 });
 
 const renderComments = (comments) => {
@@ -35,6 +37,7 @@ const renderComments = (comments) => {
     const comment = fillCommentInfo(item);
     commentsFragment.append(comment);
   });
+  commentsList.append(commentsFragment);
 };
 
 const hideBigPicture = () => {
