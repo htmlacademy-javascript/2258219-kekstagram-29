@@ -1,6 +1,5 @@
 import { getAllPosts } from './data.js';
-import { showPictures } from './posts.js';
+import { renderGallery } from './gallery.js';
 
-getAllPosts ();
-showPictures();
-
+const posts = getAllPosts();
+renderGallery(posts);
