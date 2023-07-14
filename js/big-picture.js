@@ -1,13 +1,17 @@
+const bodyElement = document.querySelector('body');
+const cancelButton = document.querySelector('.big-picture__cancel');
+
+//Pictures
 const bigPicture = document.querySelector('.big-picture');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 // Комментарии
 const commentsList = document.querySelector('.social__comments');
-const commentsElement = commentsList.querySelector('.social__comment');
-const commentsFragment = document.createDocumentFragment();
+const commentElement = document.querySelector('#comment').content.querySelector('.social__comment');
+const commentCount = document.querySelector('.social__comment-count');
 
 // Подставляем новые данные изображения
-// Данные для окна (изображение, комментарии, лайки и так далее) берите из того же объекта, который использовался для отрисовки соответствующей миниатюры.
-const renderBigPicture = ({url, comments, likes, description}) => {
+const fillBigPictureInfo = ({url, comments, likes, description}) => {
   bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
   bigPicture.querySelector('.likes-count').textContent = likes;
@@ -16,19 +20,51 @@ const renderBigPicture = ({url, comments, likes, description}) => {
 };
 
 // Подставляем новые данные комментария
+const fillCommentInfo = (({avatar, message, name}) => {
+  const comment = commentElement.cloneNode(true);
+  comment.querySelector('.social__picture').src = avatar;
+  comment.querySelector('.social__picture').alt = name;
+  comment.querySelector('.social__text').textContent = message;
+});
+
 const renderComments = (comments) => {
-  comments.forEach = (({avatar, message, name}) => {
-    commentsElement.querySelector('.social__picture').src = avatar;
-    commentsElement.querySelector('.social__picture').alt = name;
-    commentsElement.querySelector('.social__text').textContent = message;
-    commentsFragment.append(commentsElement);
+  commentsList.innerHTML = '';
+
+  const commentsFragment = document.createDocumentFragment();
+  comments.forEach((item) => {
+    const comment = fillCommentInfo(item);
+    commentsFragment.append(comment);
   });
-  commentsList.append(commentsFragment);
-  return commentsList;
 };
 
-export { renderComments, renderBigPicture };
-/*
-отрисованное связать с масссивом через id(dataset), .find и проверка на соответствие
-обработчик клика поставить на  весь контейнер(прример из демонстрации)
-*/
+const hideBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeyDown);
+};
+
+function onDocumentKeyDown (evt) {
+  if(evt.key === 'Escape'){
+    evt.preventDefault();
+    hideBigPicture();
+  }
+}
+
+const onCancelButtonClick = () => {
+  hideBigPicture();
+};
+
+cancelButton.addEventListener('click', onCancelButtonClick);
+
+const showBigPicture = (data) => {
+  bigPicture.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
+  commentsLoader.classList.add('hidden');
+  commentCount.classList.add('.hidden');
+  document.addEventListener('keydown', onDocumentKeyDown);
+
+  fillBigPictureInfo(data);
+  renderComments(data.comments);
+};
+
+export { showBigPicture, fillBigPictureInfo };

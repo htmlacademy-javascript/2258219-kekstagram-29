@@ -1,24 +1,30 @@
-import { renderPictures } from './posts.js';
-import { createComment, createPost } from './data.js';
-import { renderComments, renderBigPicture } from './big-picture.js';
+import { renderPosts, fillPostInfo } from './posts.js';
 import { getAllPosts } from './data.js';
+import { showBigPicture, fillBigPictureInfo } from './big-picture.js';
+import { renderGallery } from './gallery.js';
 
-const container = document.querySelector('.pictures');
+renderPosts();
+fillPostInfo();
+getAllPosts();
+showBigPicture();
+fillBigPictureInfo();
+renderGallery();
+// console.log(renderGallery(getAllPosts()));
 
-renderComments(createComment);
-renderPictures(getAllPosts(), container);
-
-
+// const container = document.querySelector('.pictures');
+// console.log(renderPosts(fillPostInfo(getAllPosts())), container); //Cannot read properties of undefined (reading 'forEach') at renderPosts
 /*
-Окно должно открываться при клике на миниатюру.
+    renderGallery(posts) - связать миниатюры и полное, а также загрузка галереии
+      showBigPicture(data) - открытие/показ модального окна
+        fillBigPictureInfo(объект) - перезаписать данные миниатюры
+          getAllPosts() - массив с рендером постов
+      renderPosts(posts, container) - отрисовка миниатюр
+        fillPostInfo(объект) - заполнить данные миниатюры
+          getAllPosts() - массив с рендером постов
 
-Для отображения окна нужно удалять класс hidden у элемента .big-picture и каждый раз заполнять его данными о конкретной фотографии
-
-После открытия окна спрячьте блоки счётчика комментариев .social__comment-count и загрузки новых комментариев .comments-loader, добавив им класс hidden, с ними мы разберёмся позже, в другом домашнем задании.
-
-После открытия окна добавьте тегу <body> класс modal-open, чтобы контейнер с фотографиями позади не прокручивался при скролле. При закрытии окна не забудьте удалить этот класс.
-
-Напишите код для закрытия окна по нажатию клавиши Esc и клике по иконке закрытия.
-
-Подключите модуль в проект.
+    gallery
+      posts
+        data
+      big-picture
+        data
 */

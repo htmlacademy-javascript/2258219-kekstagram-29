@@ -1,25 +1,32 @@
+//import { getAllPosts } from './data';
+
 const postTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture') ;
 
 
-const fillPostInfo = ({url, description, comments, likes}) => {
+const fillPostInfo = ({url, description, comments, likes, id}) => {
   const postElement = postTemplate.cloneNode(true);
+
   postElement.querySelector('.picture__img').src = url;
   postElement.querySelector('.picture__img').alt = description;
   postElement.querySelector('.picture__comments').textContent = comments.length;
   postElement.querySelector('.picture__likes').textContent = likes;
+  postElement.dataset.postId = id;
+
   return postElement;
 };
 
-const renderPictures = (pictures, container) => {
-  const picturesFragment = document.createDocumentFragment();
-  pictures.forEach((picture) => {
+const renderPosts = (posts, container) => {
+  const postsFragment = document.createDocumentFragment();
+  posts.forEach((picture) => {
     const postElement = fillPostInfo(picture);
-    picturesFragment.appendChild(postElement);
+    postsFragment.append(postElement);
   });
-  container.append(picturesFragment);
+
+  container.append(postsFragment);
 };
 
 
-export { renderPictures };
+export { renderPosts, fillPostInfo };
+
