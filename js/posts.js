@@ -1,5 +1,3 @@
-//import { getAllPosts } from './data';
-
 const postTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture') ;
@@ -26,5 +24,5 @@ const renderPosts = (posts, container) => {
   container.append(postsFragment);
 };
 
-export { renderPosts, fillPostInfo };
+export { renderPosts };
 
