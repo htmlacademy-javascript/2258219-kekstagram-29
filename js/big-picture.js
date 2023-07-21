@@ -1,4 +1,4 @@
-const bodyElement = document.querySelector('body');
+const body = document.querySelector('body');
 const cancelButton = document.querySelector('.big-picture__cancel');
 
 //Pictures
@@ -42,7 +42,7 @@ const renderComments = (comments) => {
 
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
-  bodyElement.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
 };
 
@@ -61,7 +61,7 @@ cancelButton.addEventListener('click', onCancelButtonClick);
 
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
-  bodyElement.classList.add('modal-open');
+  body.classList.add('modal-open');
   commentsLoader.classList.add('hidden');
   commentCount.classList.add('.hidden');
   document.addEventListener('keydown', onDocumentKeyDown);
@@ -70,4 +70,4 @@ const showBigPicture = (data) => {
   renderComments(data.comments);
 };
 
-export { showBigPicture, fillBigPictureInfo };
+export { showBigPicture };

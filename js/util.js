@@ -32,4 +32,9 @@ const createIdGenerator = () => {
   };
 };
 
-export { getRandomArrayElement, createRandomIdFromRangeGenerator, createIdGenerator, getRandomInteger };
+export {
+  getRandomArrayElement,
+  createRandomIdFromRangeGenerator,
+  createIdGenerator,
+  getRandomInteger
+};
