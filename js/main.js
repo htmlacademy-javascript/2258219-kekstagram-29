@@ -1,11 +1,14 @@
 import { getAllPosts } from './data.js';
 import { renderGallery } from './gallery.js';
-import './validation.js';
+import { validateForm } from './validation.js';
+import { uploadPost } from './upload-form.js';
 
 const posts = getAllPosts();
 renderGallery(posts);
-const editingWindow = document.querySelector('.img-upload__overlay');
-editingWindow.classList.remove('hidden');
+validateForm();
+uploadPost();
+// const editingWindow = document.querySelector('.img-upload__overlay');
+
 /*
 Изучите, что значит загрузка изображения, и как, когда и каким образом показывается форма редактирования изображения. Напишите код и
 добавьте необходимые обработчики для реализации этого пункта техзадания. В работе вы можете опираться на код показа окна с полноразмерной фотографией, который вы,

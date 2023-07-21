@@ -1,12 +1,9 @@
-const editingWindow = document.querySelector('.img-upload__overlay');
 const imageUploadForm = document.querySelector('#upload-select-image');
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
   errorTextClass: 'hashtag__error'
 }, true);
-
-editingWindow.classList.remove('hidden');
 
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
@@ -47,4 +44,4 @@ const validateForm = () => {
   });
 };
 
-export {validateForm};
+export { validateForm };
