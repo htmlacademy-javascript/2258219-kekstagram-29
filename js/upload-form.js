@@ -1,12 +1,10 @@
-import { validateForm } from './validation.js';
+import { validateForm, imageUploadForm, pristine } from './validation.js';
 const body = document.querySelector('body');
 
-const imageUploadForm = document.querySelector('#upload-select-image');
 const editingWindow = document.querySelector('.img-upload__overlay');
-const pristine = new Pristine(imageUploadForm);
 const imageUpload = document.querySelector('.img-upload__input');
 const cancelButton = imageUploadForm.querySelector('.img-upload__cancel');
-
+const submitButton = imageUploadForm.querySelector('.img-upload__submit');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 
@@ -36,8 +34,7 @@ const onCancelButton = () => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  validateForm();
-  //hideModal();
+  hideModal();
 };
 
 function onDocumentKeyDown (evt) {
@@ -51,9 +48,10 @@ const onFileInputChange = () => {
 };
 
 const uploadPost = () => {
-  imageUpload.addEventListener('change', onFileInputChange); //imageUpload.addEventListener('change', showModal())
+  imageUpload.addEventListener('change', onFileInputChange);
   cancelButton.addEventListener('click', onCancelButton);
-  imageUploadForm.addEventListener('submit', onFormSubmit);
+  submitButton.addEventListener('click', onFormSubmit);
+  imageUploadForm.addEventListener('submit', validateForm);
 };
 
 export { uploadPost };

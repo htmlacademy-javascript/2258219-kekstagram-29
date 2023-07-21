@@ -21,7 +21,7 @@ const convertHashtagsToArray = (element) => element.toLowerCase().split(' ').fil
 
 const validateHashtag = (hashtags) => {
   const newHashtags = convertHashtagsToArray(hashtags);
-  const alph = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+  const alph = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
   const isValid = (hashtag) => alph.test(hashtag);
   return newHashtags.every(isValid);
 };
@@ -34,14 +34,12 @@ const validateHashtagCount = (hashtags) => {
 const validateDescription = (element) => element.length <= MAX_DESCRIPTION_LENGTH;
 
 pristine.addValidator(hashtagInput, validateHashtag, HASHTAG_ERRORS.hashtag);
-pristine.addValidator(hashtagInput, validateHashtagCount, HASHTAG_ERRORS.hashtagCount);
+pristine.addValidator(hashtagInput, validateHashtagCount, HASHTAG_ERRORS.hashtagCount, 4);
 pristine.addValidator(commentInput, validateDescription, HASHTAG_ERRORS.description);
 
-const validateForm = () => {
-  imageUploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    pristine.validate();
-  });
+const validateForm = (evt) => {
+  evt.preventDefault();
+  pristine.validate();
 };
 
-export { validateForm };
+export { validateForm, imageUploadForm, pristine };
