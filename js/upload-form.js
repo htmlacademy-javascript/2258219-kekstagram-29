@@ -1,5 +1,6 @@
 import { validateForm, imageUploadForm, pristine } from './validation.js';
 import { resizeImage, deleteResizeImage } from './picture-sizing.js';
+import { resetEffects, setEffects } from './picture-effects.js';
 const body = document.querySelector('body');
 
 const editingWindow = document.querySelector('.img-upload__overlay');
@@ -19,6 +20,7 @@ const showModal = () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
   resizeImage();
+  setEffects();
 };
 
 
@@ -29,6 +31,7 @@ const hideModal = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
   deleteResizeImage();
+  resetEffects();
 };
 
 const onCancelButton = () => {
