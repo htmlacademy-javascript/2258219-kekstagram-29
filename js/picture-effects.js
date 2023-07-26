@@ -58,8 +58,8 @@ const effectsBox = document.querySelector('.effects');
 const imageUpload = document.querySelector('.img-upload__preview img');
 
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
-const showSlider = () => effectLevelBox.classList.remove('hidden');
-const hideSlider = () => effectLevelBox.classList.add('hidden');
+const showSliderBox = () => effectLevelBox.classList.remove('hidden');
+const hideSliderBox = () => effectLevelBox.classList.add('hidden');
 
 const initSlider = () => {
   noUiSlider.create(effectLevelSlider, {
@@ -84,9 +84,9 @@ const updateSlider = () => {
   });
 
   if (isDefault()){
-    hideSlider();
+    hideSliderBox();
   } else {
-    showSlider();
+    showSliderBox();
   }
 };
 
