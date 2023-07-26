@@ -1,8 +1,7 @@
 import { getAllPosts } from './data.js';
 import { renderGallery } from './gallery.js';
-import './validation.js';
-import { uploadPost } from './upload-form.js';
+import { sendForm } from './upload-form.js';
 
-uploadPost();
+sendForm();
 const posts = getAllPosts();
 renderGallery(posts);
