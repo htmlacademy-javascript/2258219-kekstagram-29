@@ -1,6 +1,8 @@
-import { validateForm, imageUploadForm, pristine } from './validation.js';
+import { imageUploadForm, pristine } from './validation.js';
+import { sendData } from './api.js';
 import { resizeImage, deleteResizeImage } from './picture-sizing.js';
 import { resetEffects, setEffects } from './picture-effects.js';
+//import { showAlert } from './util.js';
 const body = document.querySelector('body');
 
 const editingWindow = document.querySelector('.img-upload__overlay');
@@ -53,12 +55,20 @@ const onFileInputChange = () => {
   showModal();
 };
 
-const sendForm = () => {
+const setForm = () => {
   imageUpload.addEventListener('change', onFileInputChange);
   cancelButton.addEventListener('click', onCancelButton);
-  submitButton.addEventListener('click', onFormSubmit);
-  imageUploadForm.addEventListener('submit', validateForm);
 
+  imageUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      hideModal();
+      sendData(new FormData(evt.target));
+      submitButton.addEventListener('click', onFormSubmit);
+    }
+  });
 };
 
-export { sendForm };
+export { setForm };
