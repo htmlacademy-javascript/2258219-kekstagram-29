@@ -11,7 +11,8 @@ const cancelButton = imageUploadForm.querySelector('.img-upload__cancel');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
-const invalidMessage = 'Введённые данные невалидны';
+
+const INVALID__MESSAGE = 'Введённые данные невалидны';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -84,7 +85,7 @@ const setForm = (onSuccess) => {
           })
         .finally(unblockSubmitButton);
     } else {
-      showAlert(invalidMessage);
+      showAlert(INVALID__MESSAGE);
     }
   });
 };
