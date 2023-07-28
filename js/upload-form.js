@@ -3,21 +3,22 @@ import { sendData } from './api.js';
 import { resizeImage, deleteResizeImage } from './picture-sizing.js';
 import { resetEffects, setEffects } from './picture-effects.js';
 import { showAlert } from './util.js';
-const body = document.querySelector('body');
 
-const editingWindow = document.querySelector('.img-upload__overlay');
-const imageUpload = document.querySelector('.img-upload__input');
-const cancelButton = imageUploadForm.querySelector('.img-upload__cancel');
-const submitButton = imageUploadForm.querySelector('.img-upload__submit');
-const hashtagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
-
-const INVALID__MESSAGE = 'Введённые данные невалидны';
+const INVALID_MESSAGE = 'Введённые данные невалидны';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+
+const body = document.querySelector('body');
+const editingWindow = document.querySelector('.img-upload__overlay');
+const imageUpload = document.querySelector('.img-upload__input');
+
+const cancelButton = imageUploadForm.querySelector('.img-upload__cancel');
+const submitButton = imageUploadForm.querySelector('.img-upload__submit');
+const hashtagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
 
 const isTextFieldFocused = () =>
   document.activeElement === hashtagInput ||
@@ -85,7 +86,7 @@ const setForm = (onSuccess) => {
           })
         .finally(unblockSubmitButton);
     } else {
-      showAlert(INVALID__MESSAGE);
+      showAlert(INVALID_MESSAGE);
     }
   });
 };

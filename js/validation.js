@@ -1,13 +1,3 @@
-const imageUploadForm = document.querySelector('#upload-select-image');
-const pristine = new Pristine(imageUploadForm, {
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextClass: 'hashtag__error'
-}, true);
-
-const hashtagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
-
 const HASHTAGS_MAX_COUNT = 5;
 const HASHTAG_MAX_LENGTH = 20;
 const MAX_DESCRIPTION_LENGTH = 140;
@@ -16,6 +6,17 @@ const HASHTAG_ERRORS = {
   hashtagCount: ['Количество хэштегов должно быть не более', HASHTAGS_MAX_COUNT].join(' '),
   description: ['Длина комментария не может составлять больше ', MAX_DESCRIPTION_LENGTH,' символов'].join('')
 };
+
+const imageUploadForm = document.querySelector('#upload-select-image');
+
+const hashtagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
+
+const pristine = new Pristine(imageUploadForm, {
+  classTo: 'img-upload__text',
+  errorTextParent: 'img-upload__text',
+  errorTextClass: 'hashtag__error'
+}, true);
 
 const convertHashtagsToArray = (element) => element.toLowerCase().split(' ').filter((el) => el);
 
