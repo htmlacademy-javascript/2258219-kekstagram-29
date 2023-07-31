@@ -16,6 +16,7 @@ const fillPostInfo = ({url, description, comments, likes, id}) => {
 };
 
 const renderPosts = (posts, container) => {
+  document.querySelectorAll('.picture').forEach((thumbnail) => thumbnail.remove());
   const postsFragment = document.createDocumentFragment();
   posts.forEach((picture) => {
     const postElement = fillPostInfo(picture);
