@@ -12,27 +12,27 @@ const randomFilter = document.querySelector('#filter-random');
 const discussedFilter = document.querySelector('#filter-discussed');
 const container = document.querySelector('.pictures');
 
-const setFilter = (pictures, button) => {
-  if(button === defaultFilter) {
-    return [...pictures];
+const setFilter = (pictures, activeButton) => {
+  filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
+  activeButton.classList.add('img-filters__button--active');
+  if(activeButton === defaultFilter) {
+    return[...pictures];
   }
 
-  if(button === randomFilter) {
-    return pictures.slice().sort(() => Math.random() - 0.5)
-      .slice(0,RANDOM_POSTS_COUNT - 1);
+  if(activeButton === randomFilter) {
+    return [...pictures]
+      .sort(() => Math.random() - 0.5)
+      .slice(0,RANDOM_POSTS_COUNT);
   }
 
-  if(button === discussedFilter) {
-    return [...pictures].sort((a, b) => b.comments.length - a.comments.length);
+  if(activeButton === discussedFilter) {
+    return [...pictures]
+      .sort((a, b) => b.comments.length - a.comments.length);
   }
 };
 
 const onButtonClick = (evt, pictures) => {
-  filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
-  const activeButton = evt.target;
-  activeButton.classList.add('img-filters__button--active');
-
-  renderPosts(setFilter(pictures, activeButton), container);
+  renderPosts(setFilter(pictures, evt.target), container);
 };
 
 const rerenderPosts = (pictures) => {
