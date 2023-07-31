@@ -16,7 +16,6 @@ const fillPostInfo = ({url, description, comments, likes, id}) => {
 };
 
 const renderPosts = (posts, container) => {
-  container.querySelectorAll('.pictures').forEach((element) => element.remove());
   const postsFragment = document.createDocumentFragment();
   posts.forEach((picture) => {
     const postElement = fillPostInfo(picture);
@@ -25,5 +24,5 @@ const renderPosts = (posts, container) => {
   container.append(postsFragment);
 };
 
-export { renderPosts, fillPostInfo };
+export { renderPosts };
 

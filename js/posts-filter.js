@@ -1,21 +1,28 @@
-import { fillPostInfo } from './posts.js';
+import { renderPosts } from './posts.js';
+import { debounce } from './util.js';
+
+const TIMEOUT = 500;
 
 const RANDOM_POSTS_COUNT = 10;
-const filterButtons = document.querySelectorAll('.img-filters__button');
 
-const setFilter = (evt, pictures) => {
-  const buttonId = evt.target.id;
-  //console.log(pictures); undefind
-  if(buttonId === 'filter-default') {
+const filterForm = document.querySelector('.img-filters__form');
+const filterButtons = document.querySelectorAll('.img-filters__button');
+const defaultFilter = document.querySelector('#filter-default');
+const randomFilter = document.querySelector('#filter-random');
+const discussedFilter = document.querySelector('#filter-discussed');
+const container = document.querySelector('.pictures');
+
+const setFilter = (pictures, button) => {
+  if(button === defaultFilter) {
     return [...pictures];
   }
 
-  if(buttonId === 'filter-random') {
-    return [...pictures].sort(() => Math.random() - 0.5)
+  if(button === randomFilter) {
+    return pictures.slice().sort(() => Math.random() - 0.5)
       .slice(0,RANDOM_POSTS_COUNT - 1);
   }
 
-  if(buttonId === 'filter-discussed') {
+  if(button === discussedFilter) {
     return [...pictures].sort((a, b) => b.comments.length - a.comments.length);
   }
 };
@@ -25,11 +32,13 @@ const onButtonClick = (evt, pictures) => {
   const activeButton = evt.target;
   activeButton.classList.add('img-filters__button--active');
 
-  fillPostInfo(setFilter(evt, pictures));
+  renderPosts(setFilter(pictures, activeButton), container);
 };
 
-const rerenderPosts = () => {
-  filterButtons.forEach((button) => button.addEventListener('click', onButtonClick));
+const rerenderPosts = (pictures) => {
+  filterForm.addEventListener('click', debounce((evt) => {
+    onButtonClick(evt, pictures);
+  }, TIMEOUT));
 };
 
 export { rerenderPosts };

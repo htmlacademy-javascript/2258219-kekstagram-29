@@ -8,7 +8,7 @@ import { rerenderPosts } from './posts-filter.js';
 const imageSort = document.querySelector('.img-filters');
 getData()
   .then((posts) => {
-    renderGallery(posts);
+    rerenderPosts(renderGallery(posts));
   })
   .then(() => {
     imageSort.classList.remove('img-filters--inactive');
@@ -20,4 +20,10 @@ getData()
   );
 
 setForm(hideModal);
-rerenderPosts();
+
+try {
+  const data = await getData();
+  rerenderPosts(data);
+} catch (err) {
+  showAlert(err.message);
+}
