@@ -79,7 +79,11 @@ const unblockSubmitButton = () => {
 function onDocumentKeyDown (evt) {
   if(evt.key === 'Escape' && !isTextFieldFocused()){
     evt.preventDefault();
-    hideModal();
+    if (!body.contains(successElement) && !body.contains(errorElement)) {
+      hideModal();
+    } else {
+      closeModalMessage();
+    }
   }
 }
 const onFileInputChange = () => {
@@ -119,13 +123,24 @@ const showSuccess = () => {
   body.appendChild(successElement);
   successButton.addEventListener('click', onMessageButtonClick);
   document.addEventListener('click', onOutBoundariesClick);
+  document.addEventListener('keydown', onDocumentKeyDown);
 };
 
 const showError = () => {
   body.appendChild(errorElement);
   errorButton.addEventListener('click', onMessageButtonClick);
   document.addEventListener('click', onOutBoundariesClick);
+  document.addEventListener('keydown', onDocumentKeyDown);
 };
+
+function closeModalMessage () {
+  if (body.contains(successElement)) {
+    body.removeChild(successElement);
+  }
+  if (body.contains(errorElement)) {
+    body.removeChild(errorElement);
+  }
+}
 
 const setForm = (onSuccess) => {
   imageUpload.addEventListener('change', onFileInputChange);
