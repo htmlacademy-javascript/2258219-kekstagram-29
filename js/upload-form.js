@@ -5,6 +5,7 @@ import { resetEffects, setEffects } from './picture-effects.js';
 import { showAlert } from './util.js';
 
 const INVALID_MESSAGE = 'Введённые данные невалидны';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -14,6 +15,9 @@ const SubmitButtonText = {
 const body = document.querySelector('body');
 const editingWindow = document.querySelector('.img-upload__overlay');
 const imageUpload = document.querySelector('.img-upload__input');
+const picturePreview = document.querySelector('.img-upload__preview img');
+
+const effectPreviews = document.querySelectorAll('.effects__preview');
 
 const cancelButton = imageUploadForm.querySelector('.img-upload__cancel');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
@@ -65,6 +69,17 @@ function onDocumentKeyDown (evt) {
   }
 }
 const onFileInputChange = () => {
+
+  const file = imageUpload.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (file && matches) {
+    picturePreview.src = URL.createObjectURL(file);
+    effectPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${picturePreview.src}')`;
+    });
+  }
   showModal();
 };
 
