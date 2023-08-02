@@ -21,11 +21,3 @@ getData()
   );
 
 setForm(hideModal);
-
-// try {
-//   const data = await getData();
-//   console.log(data);
-//   rerenderPosts(data);
-// } catch (err) {
-//   showAlert(err.message);
-// }
