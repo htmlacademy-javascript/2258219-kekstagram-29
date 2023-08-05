@@ -5,6 +5,7 @@ import { resetEffects, setEffects } from './picture-effects.js';
 import { showAlert } from './util.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const INVALID_FORM_MESSAGE = 'Введены невалидные данные';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -62,7 +63,7 @@ const hideModal = () => {
   resetEffects();
 };
 
-const onCancelButton = () => {
+const onCancelButtonClick = () => {
   hideModal();
 };
 
@@ -144,7 +145,7 @@ function closeModalMessage () {
 
 const setForm = (onSuccess) => {
   imageUpload.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButton);
+  cancelButton.addEventListener('click', onCancelButtonClick);
 
   imageUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -155,13 +156,10 @@ const setForm = (onSuccess) => {
       sendData(new FormData(evt.target))
         .then(() => showSuccess())
         .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          })
+        .catch(() => showError())
         .finally(unblockSubmitButton);
     } else {
-      showError();
+      showAlert(INVALID_FORM_MESSAGE);
     }
   });
 };
