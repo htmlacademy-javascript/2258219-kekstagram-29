@@ -10,14 +10,14 @@ const SCALE_CONTROL = {
   defaultValue: 100
 };
 
-const onButtonSmaller = () => {
+const onButtonSmallerClick = () => {
   if (parseInt(scaleValue.value, 10) > SCALE_CONTROL.minValue) {
     scaleValue.value = `${parseInt(scaleValue.value, 10) - SCALE_CONTROL.step }%`;
     image.style.transform = `scale(${parseInt(scaleValue.value, 10) / 100})`;
   }
 };
 
-const onButtonBigger = () => {
+const onButtonBiggerClick = () => {
   if (parseInt(scaleValue.value, 10) < SCALE_CONTROL.maxValue) {
     scaleValue.value = `${parseInt(scaleValue.value, 10) + SCALE_CONTROL.step }%`;
     image.style.transform = `scale(${parseInt(scaleValue.value, 10) / 100})`;
@@ -25,14 +25,14 @@ const onButtonBigger = () => {
 };
 
 const resizeImage = () => {
-  buttonBigger.addEventListener('click', onButtonBigger);
-  buttonSmaller.addEventListener('click', onButtonSmaller);
+  buttonBigger.addEventListener('click', onButtonBiggerClick);
+  buttonSmaller.addEventListener('click', onButtonSmallerClick);
 };
 
 const deleteResizeImage = () => {
   image.removeAttribute('style');
-  buttonBigger.removeEventListener('click', onButtonBigger);
-  buttonSmaller.removeEventListener('click', onButtonSmaller);
+  buttonBigger.removeEventListener('click', onButtonBiggerClick);
+  buttonSmaller.removeEventListener('click', onButtonSmallerClick);
 };
 
 export { resizeImage, deleteResizeImage };

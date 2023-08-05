@@ -4,7 +4,8 @@ import { resizeImage, deleteResizeImage } from './picture-sizing.js';
 import { resetEffects, setEffects } from './picture-effects.js';
 import { showAlert } from './util.js';
 
-const INVALID_MESSAGE = 'Введённые данные невалидны';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const INVALID_FORM_MESSAGE = 'Введены невалидные данные';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -44,7 +45,7 @@ const hideModal = () => {
   resetEffects();
 };
 
-const onCancelButton = () => {
+const onCancelButtonClick = () => {
   hideModal();
 };
 
@@ -70,7 +71,7 @@ const onFileInputChange = () => {
 
 const setForm = (onSuccess) => {
   imageUpload.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButton);
+  cancelButton.addEventListener('click', onCancelButtonClick);
 
   imageUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -80,13 +81,10 @@ const setForm = (onSuccess) => {
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          })
+        .catch(() => showError())
         .finally(unblockSubmitButton);
     } else {
-      showAlert(INVALID_MESSAGE);
+      showAlert(INVALID_FORM_MESSAGE);
     }
   });
 };
