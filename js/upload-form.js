@@ -103,8 +103,11 @@ const onFileInputChange = () => {
 };
 
 const onOutBoundariesClick = (evt) => {
-  if ((evt.target === successElement && evt.target !== successInner) || (evt.target === errorElement && evt.target !== errorInner)) {
-    closeModalMessage();
+  if (evt.target === successElement && evt.target !== successInner) {
+    body.removeChild(successElement);
+  }
+  if (evt.target === errorElement && evt.target !== errorInner) {
+    body.removeChild(errorElement);
   }
 };
 
