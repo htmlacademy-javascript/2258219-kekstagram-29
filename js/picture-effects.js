@@ -1,3 +1,4 @@
+import { debounce } from './util.js';
 const EFFECTS = [
   {
     name : 'none',
@@ -115,7 +116,7 @@ initSlider();
 
 const setEffects = () => {
   effectLevelBox.classList.add('hidden');
-  effectsBox.addEventListener('change', onEffectsChange);
+  effectsBox.addEventListener('change', debounce (onEffectsChange, 500));
   effectLevelSlider.noUiSlider.on('update', onSliderUpdate);
 };
 
