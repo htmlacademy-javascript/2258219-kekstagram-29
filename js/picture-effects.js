@@ -111,8 +111,9 @@ const resetEffects = () => {
   updateSlider();
 };
 
+initSlider();
+
 const setEffects = () => {
-  initSlider();
   effectLevelBox.classList.add('hidden');
   effectsBox.addEventListener('change', onEffectsChange);
   effectLevelSlider.noUiSlider.on('update', onSliderUpdate);
