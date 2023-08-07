@@ -80,15 +80,22 @@ const unblockSubmitButton = () => {
 function onDocumentKeyDown (evt) {
   if(evt.key === 'Escape' && !isTextFieldFocused()){
     evt.preventDefault();
-    if (body.contains(successElement) || body.contains(errorElement)) {
+    if (body.contains(errorElement)) {
       closeModalMessage();
     } else {
       hideModal();
     }
   }
 }
-const onFileInputChange = () => {
 
+const onSuccessKeyDown = (evt) => {
+  evt.preventDefault();
+  if (evt.target.contains(successElement)) {
+    closeModalMessage();
+  }
+};
+
+const onFileInputChange = () => {
   const file = imageUpload.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -103,8 +110,11 @@ const onFileInputChange = () => {
 };
 
 const onOutBoundariesClick = (evt) => {
-  if ((evt.target === successElement && evt.target !== successInner) || (evt.target === errorElement && evt.target !== errorInner)) {
-    closeModalMessage();
+  if (evt.target === successElement && evt.target !== successInner) {
+    body.removeChild(successElement);
+  }
+  if (evt.target === errorElement && evt.target !== errorInner) {
+    body.removeChild(errorElement);
   }
 };
 
@@ -118,7 +128,7 @@ const showSuccess = () => {
   body.appendChild(successElement);
   successButton.addEventListener('click', onMessageButtonClick);
   document.addEventListener('click', onOutBoundariesClick);
-  document.addEventListener('keydown', onDocumentKeyDown);
+  document.addEventListener('keydown', onSuccessKeyDown);
 };
 
 const showError = () => {
