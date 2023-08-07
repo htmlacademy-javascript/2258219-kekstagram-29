@@ -5,6 +5,7 @@ import { resetEffects, setEffects } from './picture-effects.js';
 import { showAlert } from './util.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const INVALID_FORM_MESSAGE = 'Введены невалидные данные';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -29,7 +30,7 @@ const errorTemplate = document.querySelector('#error')
   .querySelector('.error');
 const errorElement = errorTemplate.cloneNode(true);
 const errorButton = errorElement.querySelector('.error__button');
-const errorInner = errorElement.querySelector('.success__inner');
+const errorInner = errorElement.querySelector('.error__inner');
 
 const successTemplate = document.querySelector('#success')
   .content
@@ -62,7 +63,7 @@ const hideModal = () => {
   resetEffects();
 };
 
-const onCancelButton = () => {
+const onCancelButtonClick = () => {
   hideModal();
 };
 
@@ -79,10 +80,10 @@ const unblockSubmitButton = () => {
 function onDocumentKeyDown (evt) {
   if(evt.key === 'Escape' && !isTextFieldFocused()){
     evt.preventDefault();
-    if (!body.contains(successElement) && !body.contains(errorElement)) {
-      hideModal();
-    } else {
+    if (body.contains(successElement) || body.contains(errorElement)) {
       closeModalMessage();
+    } else {
+      hideModal();
     }
   }
 }
@@ -111,11 +112,8 @@ const onOutBoundariesClick = (evt) => {
 };
 
 const onMessageButtonClick = (evt) => {
-  if (evt.target === successButton) {
-    body.removeChild(successElement);
-  }
-  if (evt.target === errorButton) {
-    body.removeChild(errorElement);
+  if (evt.target === successButton || evt.target === errorButton) {
+    closeModalMessage();
   }
 };
 
@@ -144,7 +142,7 @@ function closeModalMessage () {
 
 const setForm = (onSuccess) => {
   imageUpload.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButton);
+  cancelButton.addEventListener('click', onCancelButtonClick);
 
   imageUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -155,13 +153,10 @@ const setForm = (onSuccess) => {
       sendData(new FormData(evt.target))
         .then(() => showSuccess())
         .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          })
+        .catch(() => showError())
         .finally(unblockSubmitButton);
     } else {
-      showError();
+      showAlert(INVALID_FORM_MESSAGE);
     }
   });
 };
