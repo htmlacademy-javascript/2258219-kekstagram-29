@@ -40,15 +40,15 @@ const validateHashtagUniqueness = (hashtags) => {
       if (newHashtags[i] === newHashtags[j]) {
         return false;
       }
-      return true;
     }
   }
+  return true;
 };
 
 const validateDescription = (element) => element.length <= MAX_DESCRIPTION_LENGTH;
 
 pristine.addValidator(hashtagInput, validateHashtag, HASHTAG_ERRORS.hashtag);
-//pristine.addValidator(hashtagInput, validateHashtagUniqueness, HASHTAG_ERRORS.hashtagUniqueness);
+pristine.addValidator(hashtagInput, validateHashtagUniqueness, HASHTAG_ERRORS.hashtagUniqueness);
 pristine.addValidator(hashtagInput, validateHashtagCount, HASHTAG_ERRORS.hashtagCount, 4);
 pristine.addValidator(commentInput, validateDescription, HASHTAG_ERRORS.description);
 

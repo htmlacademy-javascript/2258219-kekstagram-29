@@ -30,7 +30,7 @@ const errorTemplate = document.querySelector('#error')
   .querySelector('.error');
 const errorElement = errorTemplate.cloneNode(true);
 const errorButton = errorElement.querySelector('.error__button');
-const errorInner = errorElement.querySelector('.success__inner');
+const errorInner = errorElement.querySelector('.error__inner');
 
 const successTemplate = document.querySelector('#success')
   .content
@@ -80,10 +80,10 @@ const unblockSubmitButton = () => {
 function onDocumentKeyDown (evt) {
   if(evt.key === 'Escape' && !isTextFieldFocused()){
     evt.preventDefault();
-    if (!body.contains(successElement) && !body.contains(errorElement)) {
-      hideModal();
-    } else {
+    if (body.contains(successElement) || body.contains(errorElement)) {
       closeModalMessage();
+    } else {
+      hideModal();
     }
   }
 }
@@ -103,20 +103,14 @@ const onFileInputChange = () => {
 };
 
 const onOutBoundariesClick = (evt) => {
-  if (evt.target === successElement && evt.target !== successInner) {
-    body.removeChild(successElement);
-  }
-  if (evt.target === errorElement && evt.target !== errorInner) {
-    body.removeChild(errorElement);
+  if ((evt.target === successElement && evt.target !== successInner) || (evt.target === errorElement && evt.target !== errorInner)) {
+    closeModalMessage();
   }
 };
 
 const onMessageButtonClick = (evt) => {
-  if (evt.target === successButton) {
-    body.removeChild(successElement);
-  }
-  if (evt.target === errorButton) {
-    body.removeChild(errorElement);
+  if (evt.target === successButton || evt.target === errorButton) {
+    closeModalMessage();
   }
 };
 
